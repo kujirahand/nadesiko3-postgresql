@@ -1,0 +1,27 @@
+{
+  "name": "nadesiko3-postgresql",
+  "version": "0.0.1",
+  "description": "Postgresql Plug-in for Nadesiko3",
+  "main": "src/plugin_postgresql.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kujirahand/nadesiko3-postgresql.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kujirahand/nadesiko3-postgresql/issues"
+  },
+  "homepage": "https://github.com/kujirahand/nadesiko3-postgresql#readme",
+  "dependencies": {
+    "pg": "^7.9.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "nadesiko3": "^3.0.55"
+  }
+}

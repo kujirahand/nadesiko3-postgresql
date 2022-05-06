@@ -30,10 +30,33 @@ const PluginPG = {
     type: 'func',
     josi: [],
     fn: function (sys) {
-        sys.__pg_db.end()
+      sys.__pg_db.end()
     }
   },
-  'PG逐次実行': { // @逐次実行構文にて、SQLとパラメータPARAMSでSQLを実行し、変数『対象』に結果を得る。SELECT句以外を実行した時も情報が『対象』に入る。 // @PGちくじじっこう
+  'PG実行': { // @ SQLとパラメータPARAMSでSQLを実行し、戻り値に結果を得る。 // @PGじっこう
+    type: 'func',
+    josi: [['を'], ['で']],
+    asyncFn: true,
+    fn: function (sql, params, sys) {
+      return new Promise((resolve, reject) => {
+        sys.__pg_db.query(sql, params, (err, res) => {
+          if (err) {
+            console.warn(err.message)
+            reject(err)
+            return
+          }
+          const command = res['command']
+          if (command && command.toUpperCase() === 'SELECT') {
+            const result = res['rows']
+            resolve(result)
+            return
+          }
+          resolve(res)
+        })
+      })
+    },
+  },
+  'PG逐次実行': { // @(非推奨) 逐次実行構文にて、SQLとパラメータPARAMSでSQLを実行し、変数『対象』に結果を得る。SELECT句以外を実行した時も情報が『対象』に入る。 // @PGちくじじっこう
     type: 'func',
     josi: [['を'], ['で']],
     fn: function (sql, params, sys) {
